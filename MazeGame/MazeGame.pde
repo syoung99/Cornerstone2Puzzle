@@ -41,7 +41,7 @@ int[][] walls = {
 {1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1},
 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1},
 {1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1},
-{1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0},
+{1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,4},
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -54,6 +54,7 @@ float ScreenHeight = 1000;
 Sprite sprite = new Sprite(0,0);
 boolean placed = false;
 boolean light = false;
+boolean GameState = true;
 void setup()
 {
   background(255,255,255);
@@ -64,14 +65,21 @@ void setup()
 
 void draw()
 {
-  sprite.move();
-  if (light == true)
+  if (GameState)
   {
-    sprite.Light();
+    sprite.move();
+    if (light)
+    {
+      sprite.Light();
+    }
+    else
+    {
+      sprite.shadow();
+    }
   }
-  else
+  else //user reaches end
   {
-    sprite.shadow();
+    println("You won");
   }
 }
 class Sprite
@@ -153,6 +161,10 @@ class Sprite
         rect(xpos*(ScreenWidth/rows),ypos*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
         light = true;
       }
+      else if (walls[possibleY][possibleX]==4)
+      {
+        GameState = false;
+      }
       else{ }
       println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", walls[possibleY][possibleX]);
     }
@@ -177,6 +189,11 @@ class Sprite
     else if (sightY + 4 >= cols)
     {
       sightY = cols - 5;
+    }
+    if (walls[39][40]==4)//End position for AI one
+    {
+        fill(0,180,180);
+        rect(40*(ScreenWidth/rows),39*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
     }
     for (int i = 0; i < 5; i++)
     {
@@ -211,17 +228,17 @@ class Sprite
     for(int i = 0; i < cols; i++)
     {
       for(int j = 0; j < rows; j++)
+      {
+        //walls[i][j] = 0;//(int)random(2);
+        if (walls[i][j] == 1)
         {
-          //walls[i][j] = 0;//(int)random(2);
-          if (walls[i][j] == 1)
-          {
-            fill(150,150,150);
-            rect(j*(ScreenWidth/rows),i*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
-          }
-          else if (walls[i][j]==0)
-          {
-            fill(255,255,255);
-            rect(j*(ScreenWidth/rows),i*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
+          fill(150,150,150);
+          rect(j*(ScreenWidth/rows),i*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
+        }
+        else if (walls[i][j]==0)
+        {
+          fill(255,255,255);
+          rect(j*(ScreenWidth/rows),i*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
           if (placed == false)
           {
             rect(0*(ScreenWidth/rows),0*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
@@ -231,6 +248,11 @@ class Sprite
         else if (walls[i][j]==3)
         {
           fill(0,255,0);
+          rect(j*(ScreenWidth/rows),i*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
+        }
+        else if (walls[i][j]==4)
+        {
+          fill(0,180,180);
           rect(j*(ScreenWidth/rows),i*(ScreenHeight/cols),ScreenWidth/rows,ScreenHeight/cols);
         }
       }
