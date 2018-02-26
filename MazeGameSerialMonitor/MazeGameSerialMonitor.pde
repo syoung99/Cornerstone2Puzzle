@@ -6,7 +6,7 @@ int[] vals;
 
 int cols = 41;
 int rows = 41;
-int vision = 2;
+int vision = 1;
 //int[][] walls = new int[cols][rows];
 int[][] walls = {
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -16,7 +16,7 @@ int[][] walls = {
 {1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1},
 {1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1},
 {1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1},
-{1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1},
+{1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,3,0,1,0,0,0,1,0,1},
 {1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1},
 {1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1},
 {1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1},
@@ -48,7 +48,7 @@ int[][] walls = {
 {1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1},
 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1},
 {1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1},
-{1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,4},
+{5,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,4},
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -58,16 +58,18 @@ char Up = 'w';
 char Down = 's';
 //float width = 1000;
 //float height = 1000;
-Sprite sprite = new Sprite(0,1);
+Sprite sprite = new Sprite(4,39);  //Starting position for sprite (0,1), end 1 (35,38), end 2 (4,39)
 boolean placed = false;
 boolean light = false;
 boolean GameState = true;
+boolean AI1 = false;
+boolean AI2 = false;
 void setup()
 {
   fullScreen();
   background(255,255,255);
-  //size(1000,1000);
-  frameRate(10);
+  //size(500,500);
+  frameRate(60);
   noLoop();
   final String[] ports = Serial.list();
   printArray(ports);
@@ -88,10 +90,30 @@ void draw()
     {
       sprite.shadow();
     }
+    delay(100);
   }
   else //user reaches end
   {
-    println("You won");
+    background(0,0,0);
+    if (AI1)
+    {
+      textSize(width/10);
+      fill(255,255,255);
+      textAlign(CENTER);
+      text("1 2 3 4",width/2,height/2);
+      textSize(width/50);
+      text("AI 1 has been chosen",width/2,(height/2)+(height/10));
+    }
+    else if (AI2)
+    {
+      textSize(width/10);
+      fill(255,255,255);
+      textAlign(CENTER);
+      text("4 3 2 1",width/2,height/2);
+      textSize(width/50);
+      text("AI 2 has been chosen",width/2,(height/2)+(height/10));
+    }
+    //println("You won");
   }
 }
 void serialEvent(final Serial s) {
@@ -185,6 +207,12 @@ class Sprite
       else if (walls[possibleY][possibleX]==4)
       {
         GameState = false;
+        AI1 = true;
+      }
+      else if (walls[possibleY][possibleX]==5)
+      {
+        GameState = false;
+        AI2 = true;
       }
       else{ }
       //println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", walls[possibleY][possibleX]);
@@ -199,9 +227,9 @@ class Sprite
     {
       sightX = 0;
     }
-    else if (sightX + vision*2 >= rows)
+    else if (sightX + (vision*2) >= rows)
     {
-      sightX = rows - vision*2 + 1;
+      sightX = rows - (vision*2 + 1);
     }
     if (sightY < 0)
     {
@@ -209,13 +237,13 @@ class Sprite
     }
     else if (sightY + vision*2 >= cols)
     {
-      sightY = cols - vision*2 + 1;
+      sightY = cols - (vision*2 + 1);
     }
-    if (walls[39][40]==vision*2)//End position for AI one
-    {
-        fill(0,180,180);
-        rect(40*(width/rows),39*(height/cols),width/rows,height/cols);
-    }
+    
+    fill(135,206,250);
+    rect(40*(width/rows),39*(height/cols),width/rows,height/cols);
+    fill(255,165,0);
+    rect(0*(width/rows),39*(height/cols),width/rows,height/cols);
     for (int i = 0; i < vision*2+1; i++)
     {
       for(int j = 0; j < vision*2+1; j++)
@@ -246,11 +274,12 @@ class Sprite
   }
   void Light()
   {
+    
     for(int i = 0; i < cols; i++)
     {
       for(int j = 0; j < rows; j++)
       {
-        //walls[i][j] = 0;//(int)random(2);
+        //walls[i][j] = (int)random(2);
         if (walls[i][j] == 1)
         {
           fill(150,150,150);
@@ -262,8 +291,8 @@ class Sprite
           rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
           if (placed == false)
           {
-            rect(0*(width/rows),0*(height/cols),width/rows,height/cols);
-            placed = true;
+            //rect(0*(width/rows),0*(height/cols),width/rows,height/cols);
+            //placed = true;
           }
         }
         else if (walls[i][j]==3)
@@ -273,9 +302,16 @@ class Sprite
         }
         else if (walls[i][j]==4)
         {
-          fill(0,180,180);
+          fill(135,206,250);
           rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
         }
+        else if (walls[i][j]==5)
+        {
+          fill(255,165,0);
+          rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
+        }
+        fill(255,0,0);
+        rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
       }
     }
   }
