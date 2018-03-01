@@ -6,7 +6,7 @@ int[] vals;
 
 int cols = 41;
 int rows = 41;
-int vision = 1;
+int vision = 2;
 //int[][] walls = new int[cols][rows];
 int[][] walls = {
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -58,7 +58,7 @@ char Up = 'w';
 char Down = 's';
 //float width = 1000;
 //float height = 1000;
-Sprite sprite = new Sprite(4,39);  //Starting position for sprite (0,1), end 1 (35,38), end 2 (4,39)
+Sprite sprite = new Sprite(0,1);  //Starting position for sprite (0,1), end 1 (35,38), end 2 (4,39)
 boolean placed = false;
 boolean light = false;
 boolean GameState = true;
@@ -134,14 +134,25 @@ class Sprite
   }
   void move()
   {
-    //if (keyPressed == true)
-    //{
+    if (vals != null)
+    {
+      if (vals[4] == 1)
+      {
+        xpos = 0; ypos = 1;
+      }
       possibleX = xpos;
       possibleY = ypos;
-      if (vals == null){
-        
+      
+      if (vals[3] == 1 && !light)
+      {
+        light = true;
       }
-      else if(vals[0] >= 10){
+      else if (vals[3] == 1 && light)
+      {
+        light = false;
+      }
+      
+      if(vals[0] >= 10){
         possibleX = xpos - 1;
       }
       else if (vals[0] <= -10){
@@ -216,7 +227,7 @@ class Sprite
       }
       else{ }
       //println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", walls[possibleY][possibleX]);
-    //}
+    }
   }
   void shadow()
   {
