@@ -6,18 +6,18 @@
 
 int cols = 41;
 int rows = 41;
-int vision = 2;
+int vision = 3;
 //int[][] walls = new int[cols][rows];
 int[][] walls = {
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 {0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-{1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1},
+{1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1, 1 ,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1},
 {1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1},
 {1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1},
 {1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1},
 {1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1},
-{1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,3,0,1,0,0,0,1,0,1},
-{1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1},
+{1,0,1,0,1,0,0,0,1,0,1,6,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1},//
+{1,0,1,1,1,0,1,0,1,0,1,8,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1},
 {1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1},
 {1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1},
 {1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1},
@@ -37,21 +37,21 @@ int[][] walls = {
 {1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
 {1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1},
 {1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
-{1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1},
+{1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,7,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1},
 {1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
 {1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1},
-{1,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1},
+{1,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1},//
 {1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1},
 {1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1},
 {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1},
 {1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1},
 {1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1},
-{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1},
-{1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1},
+{1,0,0,0,0,0,0,0,8,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1},
+{1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,8,1,1,1,0,1},
 {5,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,4},
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
-
+int[][] tempWalls = walls;
 char Left = 'a';
 char Right = 'd';
 char Up = 'w';
@@ -66,6 +66,7 @@ boolean light = false;
 boolean GameState = true;
 boolean AI1 = false;
 boolean AI2 = false;
+boolean Key1 = false;
 void setup()
 {
   fullScreen();
@@ -124,6 +125,53 @@ void serialEvent(final Serial s) {
   redraw = true;
 }
 */
+int CheckBox(int x, int y, int xpos, int ypos)
+{
+  if (tempWalls[y][x] == 1)//Solid Wall
+  {        
+    fill(150,150,150);
+  }
+  else if (tempWalls[y][x]==0)//No wall
+  {
+    fill(255,255,255);
+  }
+  else if (tempWalls[y][x]==3)//light block
+  {
+    fill(0,255,0);
+  }
+  else if (tempWalls[y][x]==4)//AI 1
+  {
+    fill(135,206,250);
+  }
+  else if (tempWalls[y][x]==5)//AI 2
+  {
+    fill(255,165,0);
+  }
+  else if (tempWalls[y][x]==6)//Key
+  {
+    fill(255,165,165);
+  }
+  else if (tempWalls[y][x]==7)//Key wall
+  {
+    fill(255,165,165);
+  }
+  else if (tempWalls[y][x]==8)//fake wall
+  {
+    if ( ((x-1)==xpos && ((y-1)==ypos || (y+1)==ypos || y==ypos)) || ((x+1)==xpos && ((y+1)==ypos || (y-1)==ypos || y==ypos)) || (x==xpos && ((y+1)==ypos || (y-1)==ypos || y==ypos)) )
+    {
+      fill(255,255,255);
+    }
+    else
+    {
+      fill(150,150,150);
+    }
+  }
+  rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+  return tempWalls[y][x];
+}
+
+  
+
 class Sprite
 {
   int xpos;
@@ -141,7 +189,7 @@ class Sprite
     {
       if (key == Reset)
       {
-        xpos = 0; ypos = 1;
+        xpos = 0; ypos = 1; arrayCopy(walls, tempWalls); //Key1 = false;
       }
       possibleX = xpos;
       possibleY = ypos;
@@ -184,51 +232,60 @@ class Sprite
       {
         possibleY = cols - 1;
       }
-      if (walls[possibleY][possibleX]==1)
+      if (tempWalls[possibleY][possibleX]==1)
       {
         //println("BOOOOOOOO");
       }
-      else if (walls[possibleY][possibleX]==0)
+      else if (tempWalls[possibleY][possibleX]==0)
       {
-        if (walls[ypos][xpos]==0)
+        //CheckBox(xpos,ypos);
+        if (tempWalls[ypos][xpos]==3)
         {
-          fill(255,255,255);
-          rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
-          //light = false;
-        }
-        else if (walls[ypos][xpos]==3)
-        {
-          fill(0,255,0);
-          rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
           light = false;
         }
         xpos = possibleX;
         ypos = possibleY;
-        fill(255,0,0);
-        rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
       }
-      else if (walls[possibleY][possibleX]==3)
+      else if (tempWalls[possibleY][possibleX]==3)
       {
-        fill(255,255,255);
-        rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+        //CheckBox(xpos,ypos);
         xpos = possibleX;
         ypos = possibleY;
-        fill(255,0,0);
-        rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
         light = true;
       }
-      else if (walls[possibleY][possibleX]==4)
+      else if (tempWalls[possibleY][possibleX]==4)
       {
         GameState = false;
         AI1 = true;
       }
-      else if (walls[possibleY][possibleX]==5)
+      else if (tempWalls[possibleY][possibleX]==5)
       {
         GameState = false;
         AI2 = true;
       }
+      else if (tempWalls[possibleY][possibleX]==6)
+      {
+        Key1 = true;
+        xpos = possibleX;
+        ypos = possibleY;
+        tempWalls[possibleY][possibleX] = 0;
+      }
+      else if (tempWalls[possibleY][possibleX]==7)
+      {
+        if(Key1)
+        {
+          //CheckBox(xpos,ypos);
+          xpos = possibleX;
+          ypos = possibleY;
+        }
+      }
+      else if (tempWalls[possibleY][possibleX]==8)
+      {
+        xpos = possibleX;
+        ypos = possibleY;
+      }
       else{ }
-      //println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", walls[possibleY][possibleX]);
+      //println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", tempWalls[possibleY][possibleX]);
     }
   }
   void shadow()
@@ -257,33 +314,19 @@ class Sprite
     rect(40*(width/rows),39*(height/cols),width/rows,height/cols);
     fill(255,165,0);
     rect(0*(width/rows),39*(height/cols),width/rows,height/cols);
+    
     for (int i = 0; i < vision*2+1; i++)
     {
       for(int j = 0; j < vision*2+1; j++)
       {
-        
-        if (walls[sightY+i][sightX+j] == 1)
-        {
-          fill(150,150,150);
-          rect((sightX+j)*(width/rows),(sightY+i)*(height/cols),width/rows,height/cols);
-        }
-        else if (xpos == (sightX+j) && ypos == (sightY+i))
-        {
-          fill(255,0,0);
-          rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
-        }
-        else if (walls[sightY+i][sightX+j] == 0)
-        {
-          fill(255,255,255);
-          rect((sightX+j)*(width/rows),(sightY+i)*(height/cols),width/rows,height/cols);
-        }
-        else if (walls[sightY+i][sightX+j] == 3)
-        {
-          fill(0,255,0);
-          rect((sightX+j)*(width/rows),(sightY+i)*(height/cols),width/rows,height/cols);
-        }
+        int x = sightX+j;
+        int y = sightY+i;
+        CheckBox(x, y, xpos, ypos);
       }
     }
+    
+    fill(255,0,0);
+    rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
   }
   void Light()
   {
@@ -292,41 +335,12 @@ class Sprite
     {
       for(int j = 0; j < rows; j++)
       {
-        //walls[i][j] = (int)random(2);
-        if (walls[i][j] == 1)
-        {
-          fill(150,150,150);
-          rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
-        }
-        else if (walls[i][j]==0)
-        {
-          fill(255,255,255);
-          rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
-          if (placed == false)
-          {
-            //rect(0*(width/rows),0*(height/cols),width/rows,height/cols);
-            //placed = true;
-          }
-        }
-        else if (walls[i][j]==3)
-        {
-          fill(0,255,0);
-          rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
-        }
-        else if (walls[i][j]==4)
-        {
-          fill(135,206,250);
-          rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
-        }
-        else if (walls[i][j]==5)
-        {
-          fill(255,165,0);
-          rect(j*(width/rows),i*(height/cols),width/rows,height/cols);
-        }
-        fill(255,0,0);
-        rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+        //tempWalls[i][j] = (int)random(2);
+        CheckBox(j, i, xpos, ypos);
       }
     }
+    fill(255,0,0);
+    rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
   }
 }
         
