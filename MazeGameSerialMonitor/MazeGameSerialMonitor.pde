@@ -4,6 +4,8 @@ static final int PORT_INDEX = 2, BAUDS = 9600;
 
 int[] vals;
 
+PImage KeyPhoto;
+PImage GatePhoto;
 int cols = 41;
 int rows = 41;
 int vision = 2;
@@ -77,6 +79,8 @@ void setup()
   final String[] ports = Serial.list();
   printArray(ports);
   new Serial(this, ports[PORT_INDEX], BAUDS).bufferUntil(ENTER);
+  KeyPhoto = loadImage("key.png");
+  GatePhoto = loadImage("gate.png");
 }
 
 void draw()
@@ -148,11 +152,19 @@ int CheckBox(int x, int y, int xpos, int ypos)
   }
   else if (tempWalls[y][x]==6)//Key
   {
-    fill(255,165,165);
+    //fill(255,165,165);
+    fill(255,255,255);
+    rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+    image(KeyPhoto, x*(width/rows),y*(height/cols));
+    KeyPhoto.resize(width/rows,height/cols);
   }
   else if (tempWalls[y][x]==7)//Key wall
   {
-    fill(255,165,165);
+    //fill(255,100,165);
+    fill(255,255,255);
+    rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+    image(GatePhoto, x*(width/rows),y*(height/cols));
+    GatePhoto.resize(width/rows,height/cols);
   }
   else if (tempWalls[y][x]==8)//fake wall
   {
@@ -165,7 +177,14 @@ int CheckBox(int x, int y, int xpos, int ypos)
       fill(150,150,150);
     }
   }
-  rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+  if (tempWalls[y][x] == 6)
+  {}
+  else if (tempWalls[y][x] == 7)
+  {}
+  else
+  {
+    rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+  }
   return tempWalls[y][x];
 }
 class Sprite
