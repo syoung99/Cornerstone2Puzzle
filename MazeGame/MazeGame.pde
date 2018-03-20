@@ -6,6 +6,8 @@
 
 PImage KeyPhoto;
 PImage GatePhoto;
+PImage WallPhoto;
+PImage SpritePhoto;
 int cols = 41;
 int rows = 41;
 int vision = 3;
@@ -53,7 +55,49 @@ int[][] walls = {
 {5,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,4},
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
-int[][] tempWalls = walls;
+int[][] tempWalls = {
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,1,8,1,0,1,0,1,1,1,1,1,0,1,1,1, 1 ,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1},
+{1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1},
+{1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1},
+{1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0, 8 ,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1},
+{1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1},
+{1,0,1,0,1,0,0,0,1,0,1,6,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1},//
+{1,0,1,1,1,0,1,0,1,0,1,7,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1},
+{1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1},
+{1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1},
+{1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1},
+{1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1},
+{1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1},
+{1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1},
+{1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1},
+{1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1},
+{1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1},
+{1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1},
+{1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1},
+{1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1},
+{1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
+{1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1},
+{1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1},
+{1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1},
+{1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+{1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1},
+{1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
+{1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,7,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1},//
+{1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
+{1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1},
+{1,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1},
+{1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1},
+{1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1},
+{1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1},
+{1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1},
+{1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1},
+{1,0,0,0,0,0,0,0,8,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1},
+{1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,8,1,1,1,0,1},
+{5,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,4},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
 char Left = 'a';
 char Right = 'd';
 char Up = 'w';
@@ -69,6 +113,7 @@ boolean GameState = true;
 boolean AI1 = false;
 boolean AI2 = false;
 boolean Key1 = false;
+boolean god = false;
 int count =0;
 void setup()
 {
@@ -81,7 +126,13 @@ void setup()
   //printArray(ports);
   //new Serial(this, ports[PORT_INDEX], BAUDS).bufferUntil(ENTER);
   KeyPhoto = loadImage("key.png");
+      KeyPhoto.resize(width/rows,height/cols);
   GatePhoto = loadImage("gate.png");
+      GatePhoto.resize(width/rows,height/cols);
+  WallPhoto = loadImage("wallsprite2.jpg");
+      WallPhoto.resize(width/rows,height/cols);
+  SpritePhoto = loadImage("charactersprite.png");
+      SpritePhoto.resize(width/rows,height/cols);
 }
 
 void draw()
@@ -102,6 +153,7 @@ void draw()
   else //user reaches end
   {
     background(0,0,0);
+    sprite.move();
     if (AI1)
     {
       textSize(width/10);
@@ -135,6 +187,8 @@ int CheckBox(int x, int y, int xpos, int ypos)
   if (tempWalls[y][x] == 1)//Solid Wall
   {        
     fill(150,150,150);
+    rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+    image(KeyPhoto, x*(width/rows),y*(height/cols));
   }
   else if (tempWalls[y][x]==0)//No wall
   {
@@ -158,7 +212,6 @@ int CheckBox(int x, int y, int xpos, int ypos)
     fill(255,255,255);
     rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
     image(KeyPhoto, x*(width/rows),y*(height/cols));
-    KeyPhoto.resize(width/rows,height/cols);
   }
   else if (tempWalls[y][x]==7)//Key wall
   {
@@ -166,7 +219,6 @@ int CheckBox(int x, int y, int xpos, int ypos)
     fill(255,255,255);
     rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
     image(GatePhoto, x*(width/rows),y*(height/cols));
-    GatePhoto.resize(width/rows,height/cols);
   }
   else if (tempWalls[y][x]==8)//fake wall
   {
@@ -177,6 +229,8 @@ int CheckBox(int x, int y, int xpos, int ypos)
     else
     {
       fill(150,150,150);
+      rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+      image(WallPhoto, x*(width/rows),y*(height/cols));
     }
   }
   if (tempWalls[y][x] == 6)
@@ -210,7 +264,11 @@ class Sprite
     {
       if (key == Reset)
       {
-        xpos = 0; ypos = 1; arrayCopy(walls, tempWalls); //Key1 = false;
+        xpos = 0; ypos = 1; Key1 = false; AI1 = false; AI2 = false; GameState = true;
+        for (int i = 0; i < walls.length;i++)
+        {
+          System.arraycopy(walls[i], 0, tempWalls[i], 0, tempWalls[0].length);
+        }
       }
       possibleX = xpos;
       possibleY = ypos;
@@ -306,6 +364,21 @@ class Sprite
         ypos = possibleY;
       }
       else{ }
+      
+      if (key == 'f' && !god)
+      {
+        god = true;
+      }
+      else if (key == 'f' && god)
+      {
+        god = false;
+      }
+      if (god)
+      {
+        xpos = possibleX;
+        ypos = possibleY;
+      }
+        
       //println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", tempWalls[possibleY][possibleX]);
     }
   }
@@ -346,8 +419,11 @@ class Sprite
       }
     }
     
-    fill(255,0,0);
-    rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
+    //fill(255,0,0);
+    //rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
+    fill(255,255,255);
+    rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+    image(SpritePhoto, xpos*(width/rows),ypos*(height/cols));
   }
   void Light()
   {
@@ -371,8 +447,11 @@ class Sprite
     {
       count = 0;
     }
-    fill(255,0,0);
+    //fill(255,0,0);
+    //rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+    fill(255,255,255);
     rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+    image(SpritePhoto, xpos*(width/rows),ypos*(height/cols));
   }
 }
         
