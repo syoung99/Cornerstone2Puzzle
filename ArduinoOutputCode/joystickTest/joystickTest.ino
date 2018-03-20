@@ -13,6 +13,10 @@ const int RedBtnPin = 2;
 const int GreenBtnPin = 3;
 const int BlueBtnPin = 4;
 
+const int redLedPin = 9;
+const int greenLedPin = 10;
+const int blueLedPin = 11;
+
 bool RedRead = true;
 bool GreenRead = true;
 bool BlueRead = true;
