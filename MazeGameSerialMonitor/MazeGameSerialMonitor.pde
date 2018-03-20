@@ -3,9 +3,11 @@ import processing.serial.*;
 static final int PORT_INDEX = 0, BAUDS = 9600;
 
 int[] vals;
-
+int count = 0;
 PImage KeyPhoto;
 PImage GatePhoto;
+PImage WallPhoto;
+PImage SpritePhoto;
 int cols = 41;
 int rows = 41;
 int vision = 3;
@@ -124,6 +126,8 @@ void setup()
   new Serial(this, ports[PORT_INDEX], BAUDS).bufferUntil(ENTER);
   KeyPhoto = loadImage("key.png");
   GatePhoto = loadImage("gate.png");
+  WallPhoto = loadImage("wallsprite2.jpg");
+  SpritePhoto = loadImage("charactersprite.png");
 }
 
 void draw()
@@ -174,8 +178,13 @@ void serialEvent(final Serial s) {
 int CheckBox(int x, int y, int xpos, int ypos)
 {
   if (tempWalls[y][x] == 1)//Solid Wall
-  {        
+  {    
     fill(150,150,150);
+    //fill(255,255,255);
+    rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+    image(WallPhoto, x*(width/rows),y*(height/cols));
+    WallPhoto.resize(width/rows,height/cols);
+    println("bitch");
   }
   else if (tempWalls[y][x]==0)//No wall
   {
@@ -217,7 +226,10 @@ int CheckBox(int x, int y, int xpos, int ypos)
     }
     else
     {
-      fill(150,150,150);
+      fill(255,255,255);
+      rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
+      image(WallPhoto, x*(width/rows),y*(height/cols));
+      WallPhoto.resize(width/rows,height/cols);
     }
   }
   if (tempWalls[y][x] == 6)
@@ -381,8 +393,12 @@ class Sprite
         CheckBox(x, y, xpos, ypos);
       }
     }
-    fill(255,0,0);
-    rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
+    //fill(255,0,0);
+    //rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
+    fill(255,255,255);
+    rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+    image(SpritePhoto, xpos*(width/rows),ypos*(height/cols));
+    SpritePhoto.resize(width/rows,height/cols);
   }
   void Light()
   {
@@ -391,12 +407,28 @@ class Sprite
     {
       for(int j = 0; j < rows; j++)
       {
-        //tempWalls[i][j] = (int)random(2);
+        
+        
+        if (count==i)
+        {
+        tempWalls[i][j] = (int)random(9);
+        
+        }
+        
         CheckBox(j, i, xpos, ypos);
       }
     }
-    fill(255,0,0);
+    count++;
+    if (count == 40)
+    {
+      count = 0;
+    }
+    //fill(255,0,0);
+    //rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+    fill(255,255,255);
     rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+    image(SpritePhoto, xpos*(width/rows),ypos*(height/cols));
+    SpritePhoto.resize(width/rows,height/cols);
   }
 }
         
