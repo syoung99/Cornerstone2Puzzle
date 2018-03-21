@@ -454,7 +454,7 @@ class Sprite
   }
   void Light()
   {
-    
+    /*
     for(int i = 0; i < cols; i++)
     {
       for(int j = 0; j < rows; j++)
@@ -470,11 +470,13 @@ class Sprite
         CheckBox(j, i, xpos, ypos);
       }
     }
+    
     count++;
     if (count == 40)
     {
       count = 0;
     }
+    */
     //fill(255,0,0);
     //rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
     fill(255,255,255);
