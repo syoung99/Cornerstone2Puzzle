@@ -152,7 +152,7 @@ void draw()
   }
   else //user reaches end
   {
-    background(0,0,0);
+    //background(0,0,0);
     sprite.move();
     if (AI1)
     {
@@ -172,6 +172,7 @@ void draw()
       textSize(width/50);
       text("AI 2 has been chosen",width/2,(height/2)+(height/10));
     }
+    delay(100);
     //println("You won");
   }
 }
@@ -378,7 +379,13 @@ class Sprite
         xpos = possibleX;
         ypos = possibleY;
       }
-        
+      if (!GameState)
+      {
+        background(0,0,0);
+        fill(255,255,255);
+        rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
+        image(SpritePhoto, xpos*(width/rows),ypos*(height/cols));
+      }
       //println("X pos: ", xpos + 1, "Y pos:", ypos + 1,"            Wall: ", tempWalls[possibleY][possibleX]);
     }
   }
@@ -421,7 +428,7 @@ class Sprite
     
     //fill(255,0,0);
     //rect(xpos*(width/rows), ypos*(height/cols),width/rows,height/cols);
-    fill(255,255,255);
+    fill(255);
     rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
     image(SpritePhoto, xpos*(width/rows),ypos*(height/cols));
   }
