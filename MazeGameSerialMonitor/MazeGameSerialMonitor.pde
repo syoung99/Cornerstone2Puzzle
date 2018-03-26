@@ -206,7 +206,7 @@ void draw()
       textSize(width/10);
       fill(255,255,255);
       textAlign(CENTER);
-      text("1 2 3 4",width/2,height/2);
+      text("5 2 3 9",width/2,height/2);
       textSize(width/50);
       text("AI 1 has been chosen",width/2,(height/2)+(height/10));
     }
@@ -215,7 +215,7 @@ void draw()
       textSize(width/10);
       fill(255,255,255);
       textAlign(CENTER);
-      text("4 3 2 1",width/2,height/2);
+      text("1 9 5 7",width/2,height/2);
       textSize(width/50);
       text("AI 2 has been chosen",width/2,(height/2)+(height/10));
     }
