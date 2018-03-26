@@ -3,6 +3,9 @@
 //static final int PORT_INDEX = 2, BAUDS = 9600;
 
 //int[] vals;
+import java.util.Arrays;
+
+int[] exclude = {5,4};
 
 PImage KeyPhoto;
 PImage GatePhoto;
@@ -189,7 +192,7 @@ int CheckBox(int x, int y, int xpos, int ypos)
   {        
     fill(150,150,150);
     rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
-    image(KeyPhoto, x*(width/rows),y*(height/cols));
+    //image(KeyPhoto, x*(width/rows),y*(height/cols));
   }
   else if (tempWalls[y][x]==0)//No wall
   {
@@ -229,9 +232,9 @@ int CheckBox(int x, int y, int xpos, int ypos)
     }
     else
     {
-      fill(150,150,150);
+      fill(130);
       rect(x*(width/rows),y*(height/cols),width/rows,height/cols);
-      image(WallPhoto, x*(width/rows),y*(height/cols));
+      //image(WallPhoto, x*(width/rows),y*(height/cols));
     }
   }
   if (tempWalls[y][x] == 6)
@@ -438,14 +441,18 @@ class Sprite
     {
       for(int j = 0; j < rows; j++)
       {
+
         
-        /*
         if (count==i)
         {
-        tempWalls[i][j] = (int)random(9);
-        
+          Arrays.sort(exclude);
+          //tempWalls[i][j] = (int)random(9);
+          do {
+              tempWalls[i][j] = (int) random(0, 9);
+          } 
+          while (Arrays.binarySearch(exclude, tempWalls[i][j]) >= 0);
         }
-        */
+       
         CheckBox(j, i, xpos, ypos);
       }
     }
