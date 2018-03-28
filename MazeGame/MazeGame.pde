@@ -5,7 +5,7 @@
 //int[] vals;
 import java.util.Arrays;
 
-int[] exclude = {5,4};
+int[] exclude = {2,3,4,5};
 
 PImage KeyPhoto;
 PImage GatePhoto;
@@ -109,7 +109,6 @@ char Reset = '1';
 char Lights = '2';
 //float width = 1000;
 //float height = 1000;
-Sprite sprite = new Sprite(0,1);  //Starting position for sprite (0,1), end 1 (35,38), end 2 (4,39)
 boolean placed = false;
 boolean light = false;
 boolean GameState = true;
@@ -118,6 +117,10 @@ boolean AI2 = false;
 boolean Key1 = false;
 boolean god = false;
 int count =0;
+
+Sprite sprite = new Sprite(0,1);  //Starting position for sprite (0,1), end 1 (35,38), end 2 (4,39)
+
+
 void setup()
 {
   fullScreen();
@@ -437,22 +440,23 @@ class Sprite
   }
   void Light()
   {
+    
     for(int i = 0; i < cols; i++)
     {
       for(int j = 0; j < rows; j++)
       {
 
-        
+        /*
         if (count==i)
         {
           Arrays.sort(exclude);
           //tempWalls[i][j] = (int)random(9);
           do {
-              tempWalls[i][j] = (int) random(0, 9);
+              tempWalls[i][j] = (int) random(0, 8);
           } 
           while (Arrays.binarySearch(exclude, tempWalls[i][j]) >= 0);
         }
-       
+       */
         CheckBox(j, i, xpos, ypos);
       }
     }
@@ -461,6 +465,7 @@ class Sprite
     {
       count = 0;
     }
+    
     //fill(255,0,0);
     //rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
     fill(255,255,255);

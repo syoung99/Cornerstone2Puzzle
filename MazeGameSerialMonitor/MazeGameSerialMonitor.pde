@@ -458,13 +458,13 @@ class Sprite
   }
   void Light()
   {
-    /*
+    
     for(int i = 0; i < cols; i++)
     {
       for(int j = 0; j < rows; j++)
       {
         
-        
+        /*
         if (count==i)
         {
           Arrays.sort(exclude);
@@ -475,7 +475,7 @@ class Sprite
           while (Arrays.binarySearch(exclude, tempWalls[i][j]) >= 0);
         
         }
-        
+        */
         CheckBox(j, i, xpos, ypos);
       }
     }
@@ -485,7 +485,7 @@ class Sprite
     {
       count = 0;
     }
-    */
+    
     //fill(255,0,0);
     //rect(xpos*(width/rows),ypos*(height/cols),width/rows,height/cols);
     fill(255,255,255);
