@@ -209,7 +209,7 @@ void draw()
       textAlign(CENTER);
       text("5 2 3 9",width/2,height/2);
       textSize(width/50);
-      text("AI 1 has been chosen",width/2,(height/2)+(height/10));
+      text("Controlling AI has been chosen",width/2,(height/2)+(height/10));
     }
     else if (AI2)
     {
@@ -218,7 +218,7 @@ void draw()
       textAlign(CENTER);
       text("1 9 5 7",width/2,height/2);
       textSize(width/50);
-      text("AI 2 has been chosen",width/2,(height/2)+(height/10));
+      text("Chaotic AI has been chosen",width/2,(height/2)+(height/10));
     }
     //println("You won");
   }
